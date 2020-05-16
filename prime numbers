@@ -1,0 +1,16 @@
+vector<int> Solution::sieve(int A) {
+    vector<bool> sieve(A+1,true);
+    sieve[2]=true;
+    sieve[3]=true;
+    for(int i=2;i*i<=A;++i){
+        for(int j=i*i;j<=A;j=j+i){
+            sieve[j]=false;
+        }
+    }
+    
+    vector<int> ans;
+    for(int i=2;i<A;++i){
+        if(sieve[i]==true) ans.push_back(i);
+    }
+    return ans;
+}
