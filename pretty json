@@ -1,0 +1,49 @@
+vector<string> Solution::prettyJSON(string A) {
+    vector<string> ans;
+    int tab=0;
+    int i=0;
+    int cur=-1;
+    while(i<A.length()){
+        if(A[i]==','){
+            ans[cur]+=A[i];
+            ++i;
+        }
+        
+        if(cur<0 || (cur>=0 && ans[cur]!="")){
+        ans.push_back("");
+        ++cur;    
+        }
+        
+        
+        if(A[i]==']' || A[i]=='}') --tab;
+        //print tabs
+        for(int j=0;j<tab;++j){
+            ans[cur]+='\t';
+        }
+        
+        if(A[i]=='[' || A[i]=='{'){
+            ++tab;
+            ans[cur]+=A[i];
+            ++i;
+        }
+        else if(A[i]==']' || A[i]=='}'){
+            ans[cur]+=A[i];
+            ++i;
+        }
+        
+        else{
+            while(i<A.length() && !(A[i]=='[' || A[i]=='{' || A[i]==']' || A[i]=='}' || A[i]==',')){
+                ans[cur]+=A[i];
+                ++i;
+            }    
+            if(A[i]==','){
+                ans[cur]+=A[i];
+                ++i;
+            }
+        }
+        
+        // if(cur==1) break;
+        
+    }
+    return ans;
+}
