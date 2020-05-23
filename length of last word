@@ -1,0 +1,16 @@
+int Solution::lengthOfLastWord(const string A) {
+    int n=A.length();
+    int i=n-1;
+    while(i>=0){
+        if(A[i]==' ') --i;
+        else{
+            int count=0;
+            while(i>=0 && A[i]!=' '){
+                ++count;
+                --i;
+            }
+            return count;
+        }
+    }
+    return 0;
+}
