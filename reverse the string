@@ -1,0 +1,22 @@
+string Solution::solve(string A) {
+    stack<string> mstack;
+    int i=0;
+    while(i<A.length()){
+        string str="";
+        while(i<A.length() && A[i]!=' '){
+            str+=A[i];
+            ++i;
+        }
+        if(str!="") mstack.push(str);
+        ++i;
+    }
+    
+    string ans="";
+    while(!mstack.empty()){
+        ans+=mstack.top();
+        ans+=" ";
+        mstack.pop();
+    }
+    ans=ans.substr(0,ans.length()-1);
+    return ans;
+}
