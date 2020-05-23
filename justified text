@@ -1,0 +1,107 @@
+vector<string> Solution::fullJustify(vector<string> &A, int B) {
+    
+    vector<string> ans;
+    int i=0;
+    int row=0;
+    int start=0;
+    int curcount=0,wordlength=0,words=0;;
+    while(i<A.size()){
+        start=i;
+        // cout<<start<<endl;
+        while(i<A.size() && curcount+A[i].length()<=B){
+            //add this one
+            curcount+=A[i].length()+1;
+            wordlength+=A[i].length();
+            words++;
+            ++i;
+        }
+        
+        //make last one left alligned
+        if(i==A.size()){
+            int space=B-wordlength;
+            
+            ans.push_back("");
+            int j=start;
+            // cout<<j<<" "<<i-1<<endl;
+            while(j<i){
+                ans[row]+=A[j];
+                int cspace=0;
+                
+                if(space){
+                    ans[row]+=' ';
+                    
+                    --space;
+                }
+                ++j;
+            }
+            while(space){
+                ans[row]+=' ';
+                --space;
+            }
+        }
+         else {
+            // now we have one ready to be put into ans
+            //i-1 is the word which has to be added
+            int space=B-wordlength;
+            // cout<<space<<endl;
+            int printed=space;
+            bool isodd=false;
+            
+            if(words-1>0){
+                if(space%(words-1)!=0){
+                    //left has more space
+                    isodd=true;
+                    space=(space/(words-1))+1;
+                }
+                else space=space/(words-1);    
+            }
+            
+            
+            ans.push_back("");
+            int j=start;
+            // cout<<j<<" "<<i-1<<endl;
+            while(j<i){
+                ans[row]+=A[j];
+                int cspace=0;
+                
+                while(printed && cspace<space){
+                    ans[row]+=' ';
+                    ++cspace;
+                    --printed;
+                }
+                --words;
+                
+                
+                if(isodd){
+                    if(words-1>0 && printed%(words-1)==0){
+                    space=space-1;
+                    isodd=false;    
+                    }
+                }
+                
+                ++j;
+            }
+            if(printed){
+                ans[row]+=" ";
+                --printed;
+            }
+            
+            curcount=0;
+            wordlength=0;
+            words=0;
+            
+         }
+         ++row;
+    }
+    
+    
+    
+    
+    
+    
+    // for(int i=0;i<ans.size();++i){
+    //     cout<<ans[i]<<"\n";
+    // }
+    // cout<<ans.size();
+    return ans;
+}
