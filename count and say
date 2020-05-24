@@ -1,0 +1,40 @@
+string Solution::countAndSay(int A) {
+    if(A==1) return "1";
+    if(A==2) return "11";
+    
+    string cur="11";
+    string ans="";
+    int i=3;
+    // string temp="";
+    while(i<=A){
+        
+        int j=1;
+        ans+=cur[0];
+        int c=1;
+        while(j<cur.length()){
+            // cout<<cur<<endl;
+            if(cur[j]==cur[j-1]) ++c;
+            else{
+                
+                // string ch=""+c+'0';
+                string ch="";
+                char cc=c+'0';
+                ch+=cc;
+                ans.insert(ans.length()-1,ch);
+                ans+=cur[j];
+                c=1;
+            }
+            ++j;
+        }
+        string ch="";
+        char cc=c+'0';
+        ch+=cc;
+        // cout<<ch;
+        ans.insert(ans.length()-1,ch);
+        //  cout<<endl<<ans<<endl;
+        ++i;
+        cur=ans;
+        ans="";
+    }
+    return cur;
+}
