@@ -1,0 +1,41 @@
+int Solution::isNumber(const string A) {
+    int i=0;
+    bool point=false;
+    bool exponent=false;
+    bool neg=false;
+    
+    while(i<A.length() && A[i]==' '){
+        ++i;
+    }
+    if(i==A.length()) return 0;
+    
+    while(i<A.length()){
+        if(A[i]=='-'){
+            //should be start
+            // or should have e preceeding
+            if((i!=0 && A[i-1]!='e') || neg==true) return 0;
+            neg=true;
+        }
+        else if(A[i]=='.'){
+            if(i>0 && (i==A.length()-1 || point==true || !(A[i-1]<='9' && A[i-1]>='0')) ) return 0;
+            point=true;
+        }
+        else if(A[i]=='e'){
+            if(i==0 || i==A.length()-1 || exponent==true || !(A[i-1]<='9' && A[i-1]>='0')) return 0;
+            exponent=true;
+            neg=false;
+            point=true;
+        }
+        else if(A[i]>='a' && A[i]<='z') return 0;
+        else if(A[i]>='A' && A[i]<='Z') return 0;
+        else if(A[i]==' ') break;
+        else if(!(A[i]<='9' && A[i]>='0')) return 0;
+        ++i;
+    }
+    
+    while(i<A.length() && A[i]==' '){
+        ++i;
+    }
+    if(i<A.length()) return 0;
+    return 1;
+}
