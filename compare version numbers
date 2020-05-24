@@ -1,0 +1,34 @@
+int compareV(string A,int i,string B,int j){
+    int M=1000000007;
+    // cout<<A.length()<<" "<<B.length()<<"we"<<endl;
+    if(i==A.length() && j==B.length()) return 0;
+    // if(i==A.length()) return -1;
+    // if(j==B.length()) return 1;
+    
+    if(A[i]=='.') ++i;
+    if(B[j]=='.') ++j;
+    
+    long double lA=0,lB=0;
+    while(i<A.length() && A[i]!='.'){
+        // cout<<"h";
+        lA=((lA*10)+(A[i]-'0'));
+        ++i;
+    }
+    
+    while(j<B.length() && B[j]!='.'){
+        // cout<<'k';
+        lB=((lB*10)+(B[j]-'0'));
+        ++j;
+    }
+    //  cout<<lA<<" "<<lB<<endl;
+    //  cout<<i<<" "<<j<<endl;
+    if(lA>lB) return 1;
+    if(lA<lB) return -1;
+    
+    else return compareV(A,i,B,j);
+}
+
+
+int Solution::compareVersion(string A, string B) {
+    return compareV(A,0,B,0);
+}
