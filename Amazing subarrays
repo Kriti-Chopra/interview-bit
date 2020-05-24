@@ -1,0 +1,21 @@
+bool isVowel(char A){
+    if(A=='A'|| A=='a' || A=='E'|| A=='e'
+        || A=='I'|| A=='i'
+        || A=='O'|| A=='o'
+        || A=='U'|| A=='u') return true;
+        
+    return false;
+}
+
+int Solution::solve(string A) {
+        int i=0;
+        int count=0;
+        int M= 10003;
+        while(i<A.length()){
+            if(isVowel(A[i])){
+                count=(count+(A.length()-i)%M)%M;
+            }
+            ++i;
+        }
+        return count;
+}
