@@ -1,0 +1,44 @@
+string Solution::multiply(string A, string B) {
+    if(A.length()==0 || B.length()==0) return "0";
+    string ans="";
+    int k=0;
+    while(k<=A.length()+B.length()){
+        ans+='0';
+        ++k;
+    }
+    // cout<<ans.length();
+    
+    for(int i=B.length()-1;i>=0;--i){
+        int pos=(ans.length()-1)-(B.length()-i-1);
+        int carry=0;
+        int addc=0;
+        for(int j=A.length()-1;j>=0;--j){
+            //multiply b[i] with a[j] and store in pos
+            // cout<<pos<<" ";
+                //str=num+str
+                int num=((B[i]-'0')*(A[j]-'0'))+carry;
+                char rem=(num%10)+'0';
+                if(num>=10) carry=num/10;
+                else carry=0;
+                
+                int newnum=(ans[pos]-'0')+(rem-'0')+addc;
+                char nrem=(newnum%10)+'0';
+                if(newnum>=10) addc=newnum/10;
+                else addc=0;
+                ans[pos]=nrem;
+                //  cout<<newnum<<" ";
+                // cout<<ans[pos]<<" ";
+            
+            --pos;
+        }
+        if((addc+carry)>0) ans[pos]=(((ans[pos]-'0')+(addc+carry))+'0');
+        // cout<<endl<<ans<<endl;
+    }
+    
+    while(ans[0]=='0'){
+        ans=ans.substr(1);
+    }
+    //cout<<ans;
+    if(ans.length()==0) return "0"; 
+    return ans;
+}
