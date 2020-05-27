@@ -1,0 +1,25 @@
+#define ll long long int
+int Solution::maxSpecialProduct(vector<int> &A) {
+    int n=A.size();
+    ll a[n],b[n],M=1e9+7;
+    memset(a,0,sizeof a);memset(b,0,sizeof b);
+    long long int maxL,maxR,prod,max=0,j,m;
+    stack<int>s;
+    for(int i=0;i<n;i++){
+        while(s.empty()==0 and A[s.top()]<=A[i])
+            s.pop();
+        if(s.empty()==0)a[i]=s.top();
+        s.push(i);
+    }
+    while(s.empty()==0)s.pop();
+    for(int i=n-1;i>-1;i--){
+        while(s.empty()==0 and A[s.top()]<=A[i])
+            s.pop();
+        if(s.empty()==0)b[i]=s.top();
+        s.push(i);
+    }
+    for(int i=0;i<n;i++){
+        if(a[i]*b[i]>max)max=(a[i]%M*b[i]%M)%M;
+    }
+return (int)(max%1000000007);
+}
